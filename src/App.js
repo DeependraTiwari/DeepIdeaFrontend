@@ -108,7 +108,7 @@ function App() {
   const updateTaskStatus = async (id, currentStatus) => {
     const newStatus = currentStatus === "pending" ? "completed" : "pending";
     const response = await fetch(
-      `https://todobackend-bi77.onrender.com/tasks/${id}/status`,
+      `https://deepideabackend.onrender.com/tasks/${id}/status`,
       {
         method: "PATCH",
         headers: {
@@ -124,7 +124,7 @@ function App() {
 
   const updateTaskPriority = async (id, newPriority) => {
     const response = await fetch(
-      `https://todobackend-bi77.onrender.com/tasks/${id}/priority`,
+      `https://deepideabackend.onrender.com/tasks/${id}/priority`,
       {
         method: "PATCH",
         headers: {
