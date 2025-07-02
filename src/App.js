@@ -105,13 +105,37 @@ function App() {
     fetchStats();
   };
 
-  const updateTaskStatus = (id, currentStatus) => {
+  const updateTaskStatus = async (id, currentStatus) => {
     const newStatus = currentStatus === "pending" ? "completed" : "pending";
-    updateTaskField(id, { status: newStatus });
+    const response = await fetch(
+      `https://todobackend-bi77.onrender.com/tasks/${id}/status`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: newStatus }),
+      }
+    );
+    const updatedTask = await response.json();
+    setTasks(tasks.map((task) => (task._id === id ? updatedTask : task)));
   };
 
-  const updateTaskPriority = (id, newPriority) => {
-    updateTaskField(id, { priority: newPriority });
+  const updateTaskPriority = async (id, newPriority) => {
+    const response = await fetch(
+      `https://todobackend-bi77.onrender.com/tasks/${id}/priority`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ priority: newPriority }),
+      }
+    );
+    const updatedTask = await response.json();
+    setTasks(tasks.map((task) => (task._id === id ? updatedTask : task)));
   };
 
   const filteredTasks = tasks.filter(
