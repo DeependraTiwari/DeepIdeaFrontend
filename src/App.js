@@ -263,19 +263,21 @@ function App() {
                     {task.priority.toUpperCase()}
                   </span>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 items-center">
                   <button
                     onClick={() => updateTaskStatus(task._id, task.status)}
-                    className="text-sm px-2 py-1 bg-green-100 rounded hover:bg-green-200"
+                    className={`px-3 py-1 rounded-full font-semibold transition-colors duration-200 ${
+                      task.status === "pending"
+                        ? "bg-yellow-400 text-yellow-900 hover:bg-yellow-500"
+                        : "bg-green-400 text-green-900 hover:bg-green-500"
+                     }`}
                   >
-                    {task.status === "pending" ? "Complete" : "Reopen"}
+                    {task.status === "pending" ? "Mark Complete" : "Mark Pending"}
                   </button>
                   <select
                     value={task.priority}
-                    onChange={(e) =>
-                      updateTaskPriority(task._id, e.target.value)
-                    }
-                    className="text-sm p-1 rounded border"
+                    onChange={(e) => updateTaskPriority(task._id, e.target.value)}
+                    className="p-2 border-2 border-orange-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -283,9 +285,10 @@ function App() {
                   </select>
                   <button
                     onClick={() => deleteTask(task._id)}
-                    className="text-sm px-2 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200"
+                    className="flex items-center gap-1 px-3 py-1 bg-red-500 hover:bg-red-700 text-white font-semibold rounded-full transition-colors duration-200 ml-2"
+                    title="Delete Task"
                   >
-                    Delete
+                    <i className="fas fa-trash" /> Delete
                   </button>
                 </div>
               </li>
